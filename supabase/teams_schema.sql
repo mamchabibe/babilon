@@ -8,6 +8,27 @@ create table if not exists public.teams (
   updated_at timestamptz not null default timezone('utc', now())
 );
 
+alter table public.teams
+add column if not exists current_floor integer not null default 1;
+
+alter table public.teams
+add column if not exists total_points integer not null default 0;
+
+alter table public.teams
+add column if not exists solved_levels integer not null default 0;
+
+alter table public.teams
+add column if not exists last_activity_at timestamptz;
+
+create table if not exists public.leaderboard_entries (
+  team_id uuid primary key references public.teams (id) on delete cascade,
+  group_name text not null,
+  current_floor integer not null default 1,
+  total_points integer not null default 0,
+  solved_levels integer not null default 0,
+  updated_at timestamptz not null default timezone('utc', now())
+);
+
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -24,6 +45,48 @@ create trigger teams_set_updated_at
 before update on public.teams
 for each row
 execute procedure public.set_updated_at();
+
+create or replace function public.sync_leaderboard_entry()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into public.leaderboard_entries (
+    team_id,
+    group_name,
+    current_floor,
+    total_points,
+    solved_levels,
+    updated_at
+  )
+  values (
+    new.id,
+    new.group_name,
+    new.current_floor,
+    new.total_points,
+    new.solved_levels,
+    timezone('utc', now())
+  )
+  on conflict (team_id) do update
+  set
+    group_name = excluded.group_name,
+    current_floor = excluded.current_floor,
+    total_points = excluded.total_points,
+    solved_levels = excluded.solved_levels,
+    updated_at = timezone('utc', now());
+
+  return new;
+end;
+$$;
+
+drop trigger if exists teams_sync_leaderboard_entry on public.teams;
+
+create trigger teams_sync_leaderboard_entry
+after insert or update on public.teams
+for each row
+execute procedure public.sync_leaderboard_entry();
 
 create or replace function public.handle_team_signup()
 returns trigger
@@ -80,6 +143,7 @@ for each row
 execute procedure public.handle_team_signup();
 
 alter table public.teams enable row level security;
+alter table public.leaderboard_entries enable row level security;
 
 drop policy if exists "teams can read own record" on public.teams;
 create policy "teams can read own record"
@@ -95,3 +159,10 @@ for update
 to authenticated
 using (auth.uid() = auth_user_id)
 with check (auth.uid() = auth_user_id);
+
+drop policy if exists "authenticated users can read leaderboard" on public.leaderboard_entries;
+create policy "authenticated users can read leaderboard"
+on public.leaderboard_entries
+for select
+to authenticated
+using (true);

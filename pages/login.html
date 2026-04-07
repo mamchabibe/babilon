@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Login - New Babylon</title>
+  <meta name="description" content="Sign in with your shared team account to access the tower floors and leaderboard." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="../index.html" aria-label="New Babylon home">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <p class="eyebrow">National Youth Puzzle Hunt</p>
+          <p class="brand-title">New Babylon</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu" id="menuToggle" aria-expanded="false" aria-controls="navShell" aria-label="Toggle navigation">...</button>
+
+      <div class="nav-shell" id="navShell">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a href="vision.html">Vision</a>
+          <a href="structure.html">Pages</a>
+          <a href="journey.html">Journey</a>
+          <a href="systems.html">Systems</a>
+          <a href="entry.html">Register</a>
+          <a href="login.html" aria-current="page">Login</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-hero">
+      <div class="container page-shell">
+        <a class="back-link reveal" href="../index.html">&larr; Back to home</a>
+        <article class="section-card reveal auth-page-shell">
+          <div class="auth-copy">
+            <p class="section-kicker">Team login</p>
+            <h1 class="page-title">Enter the tower</h1>
+            <p class="section-copy">
+              Use the shared team email and password created during registration. Once you sign in, protected pages like Floors and Leaderboard will open for your group.
+            </p>
+            <ul class="list-clean">
+              <li>One login is shared by the whole team.</li>
+              <li>Protected pages open only after a successful sign-in.</li>
+              <li>If email confirmation is enabled in Supabase, confirm the team email before logging in.</li>
+            </ul>
+          </div>
+
+          <form class="form-shell auth-form" id="loginForm" novalidate>
+            <div class="field">
+              <label for="email">Team email</label>
+              <input id="email" name="email" type="email" placeholder="team@example.com" autocomplete="email" required />
+            </div>
+
+            <div class="field">
+              <label for="password">Shared password</label>
+              <input id="password" name="password" type="password" placeholder="Enter the team password" autocomplete="current-password" required />
+            </div>
+
+            <button class="btn btn-primary" id="loginSubmit" type="submit">Sign in</button>
+            <p class="helper" id="loginFeedback">Sign in with the group account you created on the registration page.</p>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="eyebrow">Login page</p>
+        <small>This page signs the team into the protected parts of the platform.</small>
+      </div>
+      <div>
+        <small>No team account yet? Go to <strong style="color: var(--sand);">Register</strong> first.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/supabase-config.js"></script>
+  <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/team-login.js"></script>
+</body>
+</html>

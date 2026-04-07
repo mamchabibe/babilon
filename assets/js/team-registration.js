@@ -8,26 +8,7 @@
   }
 
   const config = window.SUPABASE_CONFIG || {};
-  const supabaseFactory = window.supabase && window.supabase.createClient;
-  const hasLiveConfig =
-    typeof config.url === "string" &&
-    typeof config.anonKey === "string" &&
-    config.url.length > 0 &&
-    config.anonKey.length > 0 &&
-    !config.url.includes("YOUR-PROJECT") &&
-    !config.anonKey.includes("YOUR-ANON-KEY");
-
-  let supabaseClient = null;
-
-  if (supabaseFactory && hasLiveConfig) {
-    supabaseClient = supabaseFactory(config.url, config.anonKey, {
-      auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true
-      }
-    });
-  }
+  const supabaseClient = window.BabilonSupabase ? window.BabilonSupabase.getClient() : null;
 
   const setFeedback = (message, type) => {
     entryFeedback.textContent = message;
@@ -110,9 +91,10 @@
       entryForm.reset();
 
       if (data.session) {
-        setFeedback("Team account created successfully. Your group can now sign in with the shared email and password.", "success");
+        setFeedback("Team account created successfully. Redirecting your group to the protected floors now...", "success");
+        window.location.href = "levels.html";
       } else {
-        setFeedback("Team account created. Check the shared team email to confirm the account before signing in.", "success");
+        setFeedback("Team account created. Check the shared team email to confirm the account before signing in on the Login page.", "success");
       }
     } catch (error) {
       const message = error && error.message ? error.message : "Something went wrong while creating the team account.";

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Floors - New Babylon</title>
+  <meta name="description" content="Protected tower floors page for signed-in teams in New Babylon." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="../index.html" aria-label="New Babylon home">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <p class="eyebrow">National Youth Puzzle Hunt</p>
+          <p class="brand-title">New Babylon</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu" id="menuToggle" aria-expanded="false" aria-controls="navShell" aria-label="Toggle navigation">...</button>
+
+      <div class="nav-shell" id="navShell">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a href="vision.html">Vision</a>
+          <a href="levels.html" aria-current="page">Floors</a>
+          <a href="leaderboard.html">Leaderboard</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn btn-ghost" type="button" data-signout>Log out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-hero">
+      <div class="container page-shell">
+        <article class="section-card reveal protected-shell">
+          <div class="protected-header">
+            <div>
+              <p class="section-kicker">Protected floor map</p>
+              <h1 class="page-title">Tower floors</h1>
+              <p class="section-copy">
+                Only signed-in teams can view this tower map. Floors represent the progression of the city as your group climbs upward through the hunt.
+              </p>
+            </div>
+            <div class="account-panel">
+              <p class="account-label">Signed in as</p>
+              <strong data-team-name>Your team</strong>
+              <span data-team-meta>Loading team data...</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="summary-grid">
+          <article class="status-item reveal">
+            <small>Current floor</small>
+            <strong id="teamFloor">-</strong>
+          </article>
+          <article class="status-item reveal">
+            <small>Total points</small>
+            <strong id="teamPoints">-</strong>
+          </article>
+          <article class="status-item reveal">
+            <small>Solved levels</small>
+            <strong id="teamSolved">-</strong>
+          </article>
+        </div>
+
+        <p class="helper reveal" id="levelsFeedback">Checking protected access...</p>
+
+        <div class="tower-grid reveal" id="towerFloors"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="eyebrow">Protected page</p>
+        <small>Unauthenticated visitors are redirected to the team login page.</small>
+      </div>
+      <div>
+        <small>Use the leaderboard page to compare your climb with other teams.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/supabase-config.js"></script>
+  <script src="../assets/js/supabase-client.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/levels.js"></script>
+</body>
+</html>
