@@ -790,10 +790,30 @@
       resize: vertical;
     }
 
+    .field-hint {
+      margin: 0;
+      color: rgba(232, 216, 181, 0.75);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
     .helper {
+      margin: 0;
       font-size: 0.84rem;
       color: var(--muted);
       line-height: 1.55;
+    }
+
+    .helper.is-success {
+      color: #b9f4d5;
+    }
+
+    .helper.is-error {
+      color: #ffb0b0;
+    }
+
+    .form-note strong {
+      color: var(--sand);
     }
 
     .footer {

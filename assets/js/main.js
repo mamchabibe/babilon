@@ -42,14 +42,3 @@ if (menuToggle && navShell) {
     }
   });
 }
-
-const entryForm = document.getElementById("entryForm");
-const entryFeedback = document.getElementById("entryFeedback");
-
-entryForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  if (entryFeedback) {
-    entryFeedback.textContent = "Placeholder captured locally. In the real build, this will connect to registration or a waitlist backend.";
-  }
-});

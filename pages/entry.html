@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Entry — New Babylon</title>
-  <meta name="description" content="Founder entry and future registration page for New Babylon." />
+  <title>Team Registration - New Babylon</title>
+  <meta name="description" content="Create a shared team account for New Babylon using one email, one password, and a list of player names." />
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
@@ -18,7 +18,7 @@
         </div>
       </a>
 
-      <button class="mobile-menu" id="menuToggle" aria-expanded="false" aria-controls="navShell" aria-label="Toggle navigation">⋯</button>
+      <button class="mobile-menu" id="menuToggle" aria-expanded="false" aria-controls="navShell" aria-label="Toggle navigation">...</button>
 
       <div class="nav-shell" id="navShell">
         <nav class="nav-links" aria-label="Main navigation">
@@ -36,12 +36,12 @@
   <main class="page-main">
     <section class="page-hero">
       <div class="container page-shell">
-        <a class="back-link reveal" href="../index.html">← Back to home</a>
+        <a class="back-link reveal" href="../index.html">&larr; Back to home</a>
         <article class="section-card reveal">
-          <p class="section-kicker">Founder entry</p>
-          <h1 class="page-title">Prepare the first gate</h1>
+          <p class="section-kicker">Team registration</p>
+          <h1 class="page-title">Create a team account</h1>
           <p class="section-copy">
-            This page is reserved for founder sign-up, watchlist capture, and later live registration. Keeping it separate makes the landing page much easier to navigate.
+            Each team uses one shared account for the platform. Register the group once, then let all teammates sign in with the same email and password.
           </p>
         </article>
       </div>
@@ -51,43 +51,52 @@
       <div class="container">
         <article class="section-card cta-panel reveal">
           <div>
-            <p class="section-kicker">Pre-launch capture</p>
-            <h2 style="margin-bottom: 16px;">Collect early interest</h2>
+            <p class="section-kicker">Shared access</p>
+            <h2 style="margin-bottom: 16px;">Register by group, not by player</h2>
             <p class="section-copy" style="max-width: 62ch; margin: 0 0 16px;">
-              Use this as a visual placeholder for now. Later, it can become the real registration module connected to Supabase Auth or another backend.
+              This form creates one team account in Supabase Auth. The group name, team email, and player names are saved together, while the shared password controls access to the account.
             </p>
             <ul class="list-clean">
-              <li>Collect founder interest before opening the real season.</li>
-              <li>Test naming, visual direction, and community reaction.</li>
-              <li>Replace this placeholder with a real signup flow later.</li>
+              <li>Use one group email that your team can access when needed.</li>
+              <li>Add all player names in the team so the organizers know who belongs to the account.</li>
+              <li>After registration, teammates can use the same account credentials to enter the site.</li>
             </ul>
+            <div class="accent-box form-note" style="margin-top: 18px;">
+              Before this works live, add your Supabase project URL and anon key in <strong>assets/js/supabase-config.js</strong>, then run the SQL file in <strong>supabase/teams_schema.sql</strong>.
+            </div>
           </div>
 
-          <form class="form-shell" id="entryForm">
+          <form class="form-shell" id="entryForm" novalidate>
             <div class="field">
-              <label for="displayName">Chosen name</label>
-              <input id="displayName" name="displayName" type="text" placeholder="Enter a player or founder name" />
+              <label for="groupName">Group name</label>
+              <input id="groupName" name="groupName" type="text" placeholder="Enter your team name" autocomplete="organization" required />
             </div>
+
             <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="name@example.com" />
+              <label for="email">Team email</label>
+              <input id="email" name="email" type="email" placeholder="team@example.com" autocomplete="email" required />
+              <p class="field-hint">This email becomes the shared login for the whole team.</p>
             </div>
+
             <div class="field">
-              <label for="role">Initial route</label>
-              <select id="role" name="role">
-                <option value="">Choose a route</option>
-                <option>Player</option>
-                <option>Team leader</option>
-                <option>Organizer</option>
-                <option>Moderator</option>
-              </select>
+              <label for="playerNames">Player names</label>
+              <textarea id="playerNames" name="playerNames" placeholder="Enter one player name per line" required></textarea>
+              <p class="field-hint">Example: Maya Haddad, Ali Nassar, Noor Saliba. One name per line works best.</p>
             </div>
+
             <div class="field">
-              <label for="note">Message to the city</label>
-              <textarea id="note" name="note" placeholder="What do you want this project to feel like?"></textarea>
+              <label for="password">Shared password</label>
+              <input id="password" name="password" type="password" placeholder="Create a strong shared password" autocomplete="new-password" required />
+              <p class="field-hint">Use at least 8 characters so the shared team account is safer.</p>
             </div>
-            <button class="btn btn-primary" type="submit">Submit placeholder entry</button>
-            <p class="helper" id="entryFeedback">This form is currently visual only. Connect it later to Supabase or another collection workflow.</p>
+
+            <div class="field">
+              <label for="confirmPassword">Confirm password</label>
+              <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Repeat the shared password" autocomplete="new-password" required />
+            </div>
+
+            <button class="btn btn-primary" id="entrySubmit" type="submit">Create team account</button>
+            <p class="helper" id="entryFeedback">Team registration is ready to connect. Add your Supabase config to make this live.</p>
           </form>
         </article>
       </div>
@@ -98,14 +107,17 @@
     <div class="container footer-grid">
       <div>
         <p class="eyebrow">Entry page</p>
-        <small>This page keeps registration and watchlist actions separate from the homepage.</small>
+        <small>This page now creates shared team accounts instead of registering players one by one.</small>
       </div>
       <div>
-        <small>Next step: connect this form to a real backend when you are ready.</small>
+        <small>Next step: after registration is working, add a team sign-in page that uses the same shared email and password.</small>
       </div>
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/supabase-config.js"></script>
   <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/team-registration.js"></script>
 </body>
 </html>
