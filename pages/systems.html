@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Systems — New Babylon</title>
+  <meta name="description" content="The functional backbone and planned systems for New Babylon." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="../index.html" aria-label="New Babylon home">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <p class="eyebrow">National Youth Puzzle Hunt</p>
+          <p class="brand-title">New Babylon</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu" id="menuToggle" aria-expanded="false" aria-controls="navShell" aria-label="Toggle navigation">⋯</button>
+
+      <div class="nav-shell" id="navShell">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a href="vision.html">Vision</a>
+          <a href="structure.html">Pages</a>
+          <a href="journey.html">Journey</a>
+          <a href="systems.html" aria-current="page">Systems</a>
+          <a href="entry.html">Entry</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-hero">
+      <div class="container page-shell">
+        <a class="back-link reveal" href="../index.html">← Back to home</a>
+        <article class="section-card reveal">
+          <p class="section-kicker">Game systems</p>
+          <h1 class="page-title">The functional backbone</h1>
+          <p class="section-copy">
+            These are the main systems that will turn the visual site into a real puzzle-hunt platform with structured progression, roles, and live control.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid-3">
+        <article class="section-card reveal">
+          <h3>Authentication layer</h3>
+          <p>Supabase sign-up, login, session handling, protected routes, player roles, and admin roles.</p>
+          <div class="status-grid" style="margin-top: 18px;">
+            <div class="status-item"><small>Status</small><strong>Placeholder</strong></div>
+            <div class="status-item"><small>Future page</small><strong>auth.html</strong></div>
+            <div class="status-item"><small>Backend</small><strong>Supabase</strong></div>
+          </div>
+        </article>
+
+        <article class="section-card reveal">
+          <h3>Progression engine</h3>
+          <p>Validated answers, unlocked levels, solve timestamps, anti-spam rules, hint release timing, and milestone tracking.</p>
+          <div class="status-grid" style="margin-top: 18px;">
+            <div class="status-item"><small>Status</small><strong>Planned</strong></div>
+            <div class="status-item"><small>Future page</small><strong>level.html</strong></div>
+            <div class="status-item"><small>Backend</small><strong>Edge functions</strong></div>
+          </div>
+        </article>
+
+        <article class="section-card reveal">
+          <h3>Broadcast & archive</h3>
+          <p>Official clue drops, schedule announcements, solved counts, emergency notices, and public updates.</p>
+          <div class="status-grid" style="margin-top: 18px;">
+            <div class="status-item"><small>Status</small><strong>Base UI</strong></div>
+            <div class="status-item"><small>Future page</small><strong>announcements.html</strong></div>
+            <div class="status-item"><small>Channel</small><strong>Discord / WhatsApp</strong></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="eyebrow">Systems page</p>
+        <small>This page keeps the technical backbone separate from the landing page.</small>
+      </div>
+      <div>
+        <small>Next suggested page: <strong style="color: var(--sand);">Entry</strong> for waitlist or registration.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

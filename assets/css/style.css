@@ -146,6 +146,12 @@
       white-space: nowrap;
     }
 
+    .nav-shell {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -161,6 +167,10 @@
     }
 
     .nav-links a:hover { color: var(--ink); }
+
+    .nav-links a[aria-current="page"] {
+      color: var(--sand);
+    }
 
     .nav-actions {
       display: flex;
@@ -538,6 +548,56 @@
       box-shadow: var(--shadow);
       padding: 24px;
       overflow: hidden;
+    }
+
+    .card-link {
+      display: block;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .card-link:hover {
+      transform: translateY(-4px);
+      border-color: rgba(214,177,102,0.28);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+    }
+
+    .page-main {
+      padding-bottom: 24px;
+    }
+
+    .page-hero {
+      padding: 44px 0 20px;
+    }
+
+    .page-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .page-title {
+      max-width: 12ch;
+      margin-bottom: 16px;
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 1.02;
+    }
+
+    .section-copy {
+      max-width: 70ch;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .back-link {
+      color: var(--gold);
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .back-link:hover {
+      color: var(--sand);
     }
 
     .section-card h3 {

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entry — New Babylon</title>
+  <meta name="description" content="Founder entry and future registration page for New Babylon." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="../index.html" aria-label="New Babylon home">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <p class="eyebrow">National Youth Puzzle Hunt</p>
+          <p class="brand-title">New Babylon</p>
+        </div>
+      </a>
+
+      <button class="mobile-menu" id="menuToggle" aria-expanded="false" aria-controls="navShell" aria-label="Toggle navigation">⋯</button>
+
+      <div class="nav-shell" id="navShell">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="../index.html">Home</a>
+          <a href="vision.html">Vision</a>
+          <a href="structure.html">Pages</a>
+          <a href="journey.html">Journey</a>
+          <a href="systems.html">Systems</a>
+          <a href="entry.html" aria-current="page">Entry</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-hero">
+      <div class="container page-shell">
+        <a class="back-link reveal" href="../index.html">← Back to home</a>
+        <article class="section-card reveal">
+          <p class="section-kicker">Founder entry</p>
+          <h1 class="page-title">Prepare the first gate</h1>
+          <p class="section-copy">
+            This page is reserved for founder sign-up, watchlist capture, and later live registration. Keeping it separate makes the landing page much easier to navigate.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <article class="section-card cta-panel reveal">
+          <div>
+            <p class="section-kicker">Pre-launch capture</p>
+            <h2 style="margin-bottom: 16px;">Collect early interest</h2>
+            <p class="section-copy" style="max-width: 62ch; margin: 0 0 16px;">
+              Use this as a visual placeholder for now. Later, it can become the real registration module connected to Supabase Auth or another backend.
+            </p>
+            <ul class="list-clean">
+              <li>Collect founder interest before opening the real season.</li>
+              <li>Test naming, visual direction, and community reaction.</li>
+              <li>Replace this placeholder with a real signup flow later.</li>
+            </ul>
+          </div>
+
+          <form class="form-shell" id="entryForm">
+            <div class="field">
+              <label for="displayName">Chosen name</label>
+              <input id="displayName" name="displayName" type="text" placeholder="Enter a player or founder name" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" />
+            </div>
+            <div class="field">
+              <label for="role">Initial route</label>
+              <select id="role" name="role">
+                <option value="">Choose a route</option>
+                <option>Player</option>
+                <option>Team leader</option>
+                <option>Organizer</option>
+                <option>Moderator</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="note">Message to the city</label>
+              <textarea id="note" name="note" placeholder="What do you want this project to feel like?"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit placeholder entry</button>
+            <p class="helper" id="entryFeedback">This form is currently visual only. Connect it later to Supabase or another collection workflow.</p>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="eyebrow">Entry page</p>
+        <small>This page keeps registration and watchlist actions separate from the homepage.</small>
+      </div>
+      <div>
+        <small>Next step: connect this form to a real backend when you are ready.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
