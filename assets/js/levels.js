@@ -1,6 +1,7 @@
 (function () {
   const summaryFeedback = document.getElementById("levelsFeedback");
   const floorsContainer = document.getElementById("towerFloors");
+  const teamRoster = document.querySelector("[data-team-roster]");
 
   if (!summaryFeedback || !floorsContainer) {
     return;
@@ -71,6 +72,19 @@
       .join("");
   }
 
+  function setRoster(playerNames) {
+    if (!teamRoster) {
+      return;
+    }
+
+    if (!playerNames.length) {
+      teamRoster.textContent = "No player names listed yet.";
+      return;
+    }
+
+    teamRoster.textContent = `Players: ${playerNames.join(", ")}`;
+  }
+
   async function initLevelsPage() {
     try {
       auth.wireLogoutButtons();
@@ -81,12 +95,14 @@
         return;
       }
 
-      const team = await auth.fetchCurrentTeam(authState.client, authState.user.id);
+      const team = await auth.fetchCurrentTeam(authState.client, authState.user);
       const teamName = team.group_name || "Your team";
-      const playerCount = Array.isArray(team.player_names) ? team.player_names.length : 0;
+      const playerNames = auth.normalizePlayerNames(team.player_names);
+      const playerCount = playerNames.length;
 
       auth.setTeamName(teamName);
-      auth.setTeamMeta(`${playerCount} players in this group`);
+      auth.setTeamMeta(playerCount ? `${playerCount} players in this group` : "Team profile loaded");
+      setRoster(playerNames);
 
       document.getElementById("teamFloor").textContent = String(team.current_floor || 1);
       document.getElementById("teamPoints").textContent = String(team.total_points || 0);

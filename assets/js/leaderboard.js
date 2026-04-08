@@ -41,7 +41,7 @@
         return;
       }
 
-      const team = await auth.fetchCurrentTeam(authState.client, authState.user.id);
+      const team = await auth.fetchCurrentTeam(authState.client, authState.user);
 
       auth.setTeamName(team.group_name || "Your team");
       auth.setTeamMeta(`${team.current_floor || 1} active floor`);
