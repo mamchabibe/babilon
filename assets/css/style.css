@@ -95,37 +95,9 @@
       width: 44px;
       height: 44px;
       border-radius: 12px;
-      background:
-        linear-gradient(135deg, rgba(214,177,102,0.26), rgba(111,208,199,0.16)),
-        rgba(255,255,255,0.04);
-      border: 1px solid rgba(214,177,102,0.18);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 6px 30px rgba(0,0,0,0.22);
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .brand-mark::before,
-    .brand-mark::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      border-left: 1px solid rgba(214,177,102,0.55);
-      border-right: 1px solid rgba(214,177,102,0.55);
-      border-radius: 2px;
-    }
-
-    .brand-mark::before {
-      width: 24px; height: 28px; bottom: 8px;
-      box-shadow: 0 -8px 0 -1px rgba(214,177,102,0.55), 0 -16px 0 -1px rgba(214,177,102,0.55);
-    }
-
-    .brand-mark::after {
-      width: 10px; height: 34px; bottom: 4px;
-      background: linear-gradient(180deg, rgba(214,177,102,0.38), rgba(214,177,102,0.04));
-      opacity: 0.8;
+      object-fit: contain;
+      display: block;
+      flex: 0 0 44px;
     }
 
     .brand-copy {
