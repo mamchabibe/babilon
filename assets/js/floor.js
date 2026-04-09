@@ -64,6 +64,12 @@
         "So this is thy answer. Thou wouldst cast down the work and call it righteousness. Yet know this: if I fall, it shall not be because my vision was small -- but because ye chose the scattered path over the glory of the tower."
     }
   };
+  const finalFloorVictoryMessage = {
+    kicker: "Final victory",
+    title: "CONGRATULATIONS - FLOOR VIII CONQUERED",
+    message:
+      "You have endured the trial.\nYou have seen through the veil.\nYou have stood where others fell, and you have brought down the false ascent.\n\nThe eighth floor is broken.\nAlastor has fallen.\nAnd the path now stands under a greater name.\n\n“This man is my chosen instrument to carry my name.”\n\nGo forth, then, not as one deceived, but as one revealed.\nNot as a builder of pride, but as a bearer of truth.\nThe trial is ended.\nThe calling begins."
+  };
   const floorSpecialEvents = {
     8: `...
 ...
@@ -188,10 +194,12 @@ REVEAL THE REMEDY
       return;
     }
 
-    const popupContent = floorPopupMessages[floor.number];
+    const popupContent = floor.number === 8 && isFloorCleared(team, floor.number)
+      ? finalFloorVictoryMessage
+      : floorPopupMessages[floor.number];
 
     if (popupKickerNode) {
-      popupKickerNode.textContent = `Floor ${floor.number}`;
+      popupKickerNode.textContent = popupContent && popupContent.kicker ? popupContent.kicker : `Floor ${floor.number}`;
     }
 
     if (popupTitleNode) {
@@ -431,6 +439,19 @@ REVEAL THE REMEDY
     return `Correct. ${nextStepMessage}`;
   }
 
+  function maybeShowFinalVictoryPopup(team, floor) {
+    if (!team || !floor) {
+      return;
+    }
+
+    if (floor.number !== 8 || !isFloorCleared(team, floor.number)) {
+      return;
+    }
+
+    syncCompletionPopup(team, floor);
+    showCompletionPopup();
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -478,6 +499,7 @@ REVEAL THE REMEDY
       renderFloor(updatedTeam, floor);
       answerForm.reset();
       setFeedback(buildCompletionFeedback(floor, completion.award), "success");
+      maybeShowFinalVictoryPopup(updatedTeam, floor);
     } catch (error) {
       setFeedback(normalizeErrorMessage(error), "error");
       submitButton.disabled = false;

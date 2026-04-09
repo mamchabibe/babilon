@@ -1151,6 +1151,7 @@
       margin: 0;
       color: #c7dbc8;
       line-height: 1.65;
+      white-space: pre-line;
     }
 
     .floor-event-overlay {
