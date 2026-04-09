@@ -8,10 +8,6 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
-  <button class="floor-popup-trigger" id="floorPopupTrigger" type="button" aria-label="Open floor message">
-    <img class="floor-popup-trigger-image" src="../assets/images/popup.png" alt="" />
-  </button>
-
   <div class="floor-popup" id="floorCompletionPopup" hidden>
     <div class="floor-popup-card" role="status" aria-live="polite" aria-atomic="true">
       <button class="floor-popup-close" id="floorPopupClose" type="button" aria-label="Close completion message">&times;</button>
@@ -87,6 +83,9 @@
             <div class="status-item">
               <small>Access</small>
               <strong id="floorAccessState">-</strong>
+              <button class="floor-popup-trigger" id="floorPopupTrigger" type="button" aria-label="Open floor message">
+                <img class="floor-popup-trigger-image" src="../assets/images/popup.png" alt="" />
+              </button>
             </div>
           </div>
         </article>
