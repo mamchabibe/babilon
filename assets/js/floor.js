@@ -87,7 +87,7 @@
       ? "This chamber is open to your team now. Read with care and answer only when you are certain."
       : "This chamber is sealed. Clear the previous floor before attempting to enter.";
     riddleNode.textContent = floor.riddle;
-    pointsNode.textContent = `${floor.points} pts`;
+    pointsNode.textContent = isCleared ? `${floor.points} pts` : "Hidden until cleared";
     accessStateNode.textContent = isCleared ? "Cleared" : isUnlocked ? "Unlocked" : "Locked";
 
     if (!isUnlocked) {

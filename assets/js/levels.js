@@ -41,6 +41,7 @@
         const isUnlocked = isCleared || isCurrent;
         const stateClass = isCleared ? "is-cleared" : isCurrent ? "is-current" : "is-locked";
         const stateLabel = isCleared ? "Cleared" : isCurrent ? "Current floor" : "Locked";
+        const rewardLabel = isCleared ? `${floor.points} pts` : "Reward hidden";
         const actionMarkup = isUnlocked
           ? `<a class="tower-link" href="floor.html?floor=${floor.number}">${isCleared ? "Revisit floor" : "Enter floor"}</a>`
           : `<span class="tower-link is-disabled">Locked</span>`;
@@ -54,7 +55,7 @@
             <h3>${floor.title}</h3>
             <p>${isCurrent ? "This gate is open to your team right now." : isCleared ? "Your team has already passed through this floor." : "Complete the previous floor to unlock this one."}</p>
             <div class="tower-card-meta">
-              <span>${floor.points} pts</span>
+              <span>${rewardLabel}</span>
               <span>${actionMarkup}</span>
             </div>
           </article>
