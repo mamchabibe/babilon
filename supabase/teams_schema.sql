@@ -290,13 +290,13 @@ begin
     timezone('utc', now())
   );
 
-  update public.teams
+  update public.teams as t
   set
-    solved_levels = greatest(coalesce(solved_levels, 0), p_floor_number),
-    current_floor = greatest(coalesce(current_floor, 1), next_floor),
-    total_points = coalesce(total_points, 0) + awarded_total,
+    solved_levels = greatest(coalesce(t.solved_levels, 0), p_floor_number),
+    current_floor = greatest(coalesce(t.current_floor, 1), next_floor),
+    total_points = coalesce(t.total_points, 0) + awarded_total,
     last_activity_at = timezone('utc', now())
-  where id = target_team.id
+  where t.id = target_team.id
   returning *
   into target_team;
 
