@@ -33,18 +33,16 @@
     const floors = floorData && Array.isArray(floorData.floors) ? floorData.floors : [];
     const solvedLevels = Number(team.solved_levels || 0);
     const currentFloor = Math.max(1, Number(team.current_floor || 1));
+    const visibleFloors = floors.filter((floor) => floor.number <= currentFloor);
 
-    floorsContainer.innerHTML = floors
+    floorsContainer.innerHTML = visibleFloors
       .map((floor) => {
         const isCleared = solvedLevels >= floor.number;
         const isCurrent = !isCleared && floor.number === currentFloor;
-        const isUnlocked = isCleared || isCurrent;
-        const stateClass = isCleared ? "is-cleared" : isCurrent ? "is-current" : "is-locked";
-        const stateLabel = isCleared ? "Cleared" : isCurrent ? "Current floor" : "Locked";
+        const stateClass = isCleared ? "is-cleared" : "is-current";
+        const stateLabel = isCleared ? "Cleared" : "Current floor";
         const rewardLabel = isCleared ? `${floor.points} pts` : "Reward hidden";
-        const actionMarkup = isUnlocked
-          ? `<a class="tower-link" href="floor.html?floor=${floor.number}">${isCleared ? "Revisit floor" : "Enter floor"}</a>`
-          : `<span class="tower-link is-disabled">Locked</span>`;
+        const actionMarkup = `<a class="tower-link" href="floor.html?floor=${floor.number}">${isCleared ? "Revisit floor" : "Enter floor"}</a>`;
 
         return `
           <article class="tower-card ${stateClass}">
@@ -53,7 +51,7 @@
               <span class="status-chip">${stateLabel}</span>
             </div>
             <h3>${floor.title}</h3>
-            <p>${isCurrent ? "This gate is open to your team right now." : isCleared ? "Your team has already passed through this floor." : "Complete the previous floor to unlock this one."}</p>
+            <p>${isCurrent ? "This gate is open to your team right now." : "Your team has already passed through this floor."}</p>
             <div class="tower-card-meta">
               <span>${rewardLabel}</span>
               <span>${actionMarkup}</span>
