@@ -1172,6 +1172,10 @@
       backdrop-filter: blur(6px);
     }
 
+    .floor-event-overlay[hidden] {
+      display: none !important;
+    }
+
     .floor-event-panel {
       width: min(100%, 760px);
       padding: 28px;

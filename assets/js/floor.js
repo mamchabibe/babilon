@@ -155,7 +155,12 @@ REVEAL THE REMEDY
 
     const eventMessage = floorSpecialEvents[floor.number];
 
-    if (!eventMessage || shownFloorEventNumber === floor.number) {
+    if (!eventMessage) {
+      hideFloorEvent();
+      return;
+    }
+
+    if (shownFloorEventNumber === floor.number) {
       return;
     }
 
