@@ -69,8 +69,8 @@
       title: "Aim for the sky",
       points: 400,
       riddle:
-        "I am drawn below, yet I command the eye above. Every hand that seeks a summit first imagines me. What am I?",
-      answer: "arrow"
+        "The path is not written in numbers.\nIt is sung.\n\nSix psalms guard the way.\nThree face the dawn.\nThree face the dying light.\n\nFind first:\nthe song of the wounded soul,\nthe song of the patient righteous,\nthe song that trusts not in chariots.\n\nThen find:\nthe song of the pilgrim longing for the courts,\nthe song that begs judgment on pursuers,\nthe song of the one drawn from the pit.\n\nSet the first three as North.\nSet the last three as West.\nDegrees. Minutes. Seconds.\n\nThen let the earth reveal what men forgot.",
+      answer: "NOAH"
     },
     {
       number: 6,
