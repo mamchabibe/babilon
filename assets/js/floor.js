@@ -105,6 +105,19 @@
             const options = Array.isArray(chamber.options) && chamber.options.length
               ? `<ul class="floor-option-list">${chamber.options.map((option) => `<li>${escapeHtml(option)}</li>`).join("")}</ul>`
               : "";
+            const secretPanel = chamber.password
+              ? `
+                <form class="floor-secret-form" data-secret-form="${index}" novalidate>
+                  <label class="floor-secret-label" for="secret-${index}">Password</label>
+                  <div class="floor-secret-row">
+                    <input class="floor-secret-input" id="secret-${index}" type="text" placeholder="Enter the hidden password" autocomplete="off" />
+                    <button class="btn btn-secondary floor-secret-button" type="submit">Reveal</button>
+                  </div>
+                  <p class="helper floor-secret-feedback" data-secret-feedback="${index}">Only the true wound reveals the word.</p>
+                  <p class="floor-secret-output" data-secret-output="${index}" hidden></p>
+                </form>
+              `
+              : "";
 
             return `
               <article class="floor-chamber">
@@ -113,6 +126,7 @@
                 ${image}
                 ${options}
                 ${clue}
+                ${secretPanel}
               </article>
             `;
           })
@@ -131,6 +145,50 @@
     return `<p class="floor-block">${formatMultilineText(floor.riddle || "")}</p>`;
   }
 
+  function wireSecretPanels(floor) {
+    const secretForms = riddleNode.querySelectorAll("[data-secret-form]");
+
+    secretForms.forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const index = Number(form.getAttribute("data-secret-form"));
+        const chamber = floor.chambers && floor.chambers[index];
+        const input = form.querySelector(".floor-secret-input");
+        const feedback = form.querySelector(".floor-secret-feedback");
+        const output = form.querySelector(".floor-secret-output");
+
+        if (!chamber || !input || !feedback || !output) {
+          return;
+        }
+
+        const submittedPassword = floorData.normalizeAnswer(input.value);
+        const correctPassword = floorData.normalizeAnswer(chamber.password);
+
+        feedback.classList.remove("is-error", "is-success");
+
+        if (!submittedPassword) {
+          feedback.textContent = "Enter the wound before asking for the word.";
+          feedback.classList.add("is-error");
+          output.hidden = true;
+          return;
+        }
+
+        if (submittedPassword !== correctPassword) {
+          feedback.textContent = "That wound does not open this witness.";
+          feedback.classList.add("is-error");
+          output.hidden = true;
+          return;
+        }
+
+        feedback.textContent = "The witness yields its hidden word.";
+        feedback.classList.add("is-success");
+        output.textContent = chamber.hiddenWord;
+        output.hidden = false;
+      });
+    });
+  }
+
   function renderFloor(team, floor) {
     const isCleared = isFloorCleared(team, floor.number);
     const isUnlocked = isFloorUnlocked(team, floor.number);
@@ -143,6 +201,7 @@
       ? "This chamber is open to your team now. Read with care and answer only when you are certain."
       : "This chamber is sealed. Clear the previous floor before attempting to enter.";
     riddleNode.innerHTML = renderFloorBody(floor);
+    wireSecretPanels(floor);
     answerHintNode.textContent = floor.answerPrompt || "Answers are checked without case sensitivity. Focus on the core word or phrase.";
     pointsNode.textContent = isCleared ? `${floor.points} pts` : "Hidden until cleared";
     accessStateNode.textContent = isCleared ? "Cleared" : isUnlocked ? "Unlocked" : "Locked";

@@ -1051,6 +1051,54 @@
       gap: 8px;
     }
 
+    .floor-secret-form {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(214,177,102,0.08);
+    }
+
+    .floor-secret-label {
+      color: var(--sand);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .floor-secret-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .floor-secret-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(214,177,102,0.18);
+      background: rgba(6,8,12,0.72);
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+    }
+
+    .floor-secret-input:focus {
+      border-color: rgba(111,208,199,0.5);
+      box-shadow: 0 0 0 4px rgba(111,208,199,0.10);
+    }
+
+    .floor-secret-button {
+      flex: 0 0 auto;
+    }
+
+    .floor-secret-output {
+      margin: 0;
+      color: var(--sand);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
     .leaderboard-shell {
       overflow: hidden;
       border: 1px solid rgba(214,177,102,0.12);

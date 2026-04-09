@@ -92,9 +92,54 @@
       number: 8,
       title: "the great fall",
       points: 1000,
-      riddle:
-        "The higher pride ascends, the harder I answer. I humble towers, kings, and names alike. What am I?",
-      answer: "fall"
+      intro:
+        "The last gate does not heed your wit.\nIt will not open to guesswork, nor to tongues too eager to name what they have not read.\n\nSeven witnesses stand beyond this page.\nEach bears a wound.\nBring me not the verse, but the wound condemned within it.\n\nSeek first the saying of the king: 16:18.\nSeek second the warning of the physician: 12:15.\nSeek third the judgment of the mountain voice: 5:28.\nSeek fourth the rebuke of the brother: 3:16.\nSeek fifth the table of ruin: 23:20–21.\nSeek sixth the spark of strife: 29:22.\nSeek seventh the lesson of the smallest laborer: 6:6–11.\n\nFour times the king shall speak.\nThe physician once.\nThe mountain once.\nThe brother once.\n\nRead the witnesses.\nName the seven wounds.\nOnly then shall the fall begin.",
+      chambers: [
+        {
+          title: "Witness I — 16:18",
+          clue: "Enter the wound.",
+          password: "humility",
+          hiddenWord: "Saoul"
+        },
+        {
+          title: "Witness II — 12:15",
+          clue: "Enter the wound.",
+          password: "generosity",
+          hiddenWord: "Chosen"
+        },
+        {
+          title: "Witness III — 5:28",
+          clue: "Enter the wound.",
+          password: "chastity",
+          hiddenWord: "Paul"
+        },
+        {
+          title: "Witness IV — 3:16",
+          clue: "Enter the wound.",
+          password: "kindness",
+          hiddenWord: "MAM"
+        },
+        {
+          title: "Witness V — 23:20-21",
+          clue: "Enter the wound.",
+          password: "temparance",
+          hiddenWord: "God"
+        },
+        {
+          title: "Witness VI — 29:22",
+          clue: "Enter the wound.",
+          password: "patience",
+          hiddenWord: "Man"
+        },
+        {
+          title: "Witness VII — 6:6-11",
+          clue: "Enter the wound.",
+          password: "diligence",
+          hiddenWord: "Acts of the apostols"
+        }
+      ],
+      answerPrompt: "Bring the final key.",
+      answer: "instrument of god"
     }
   ];
 
