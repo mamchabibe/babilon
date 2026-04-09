@@ -77,8 +77,8 @@
       title: "On the top",
       points: 550,
       riddle:
-        "I am desired by all who climb, but I last only for the one who can remain steady when the wind arrives. What am I?",
-      answer: "summit"
+        "Fools search the walls.\nThe worthy read the commands beneath them.\nMen are shown pages.\nCrawlers are warned away from kingdoms.\nGo where the machine is told not to go.",
+      answer: "NEBUCHADNEZZAR"
     },
     {
       number: 7,

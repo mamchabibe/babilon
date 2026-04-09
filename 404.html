@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 / Hidden States - New Babylon</title>
-  <meta name="description" content="A hidden-state page for lost paths, sealed routes, and unrevealed signals inside New Babylon." />
+  <title>404 - Hidden</title>
+  <meta name="description" content="A hidden page withheld from the visible paths of the site." />
   <script>
     (function () {
       var baseHref;
@@ -20,324 +20,38 @@
   </script>
   <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    :root {
-      --bg: #09070c;
-      --panel: rgba(20, 14, 28, 0.84);
-      --gold: #d6b166;
-      --sand: #e8d8b5;
-      --ink: #f6efdf;
-      --muted: #bca98a;
-      --line: rgba(214, 177, 102, 0.18);
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      --max: 1200px;
-      --radius: 22px;
-    }
-
-    * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        linear-gradient(180deg, rgba(5, 4, 9, 0.5) 0%, rgba(9, 7, 12, 0.78) 100%),
-        radial-gradient(circle at 15% 20%, rgba(127, 92, 244, 0.12), transparent 35%),
-        radial-gradient(circle at 85% 10%, rgba(111, 208, 199, 0.08), transparent 25%),
-        #09070c;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    .container { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(180deg, rgba(8, 6, 11, 0.9), rgba(8, 6, 11, 0.62));
-      border-bottom: 1px solid rgba(214, 177, 102, 0.1);
-    }
-
-    .topbar-inner {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 12px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      border-radius: 12px;
-      flex: 0 0 44px;
-    }
-
-    .eyebrow {
-      margin: 0 0 4px;
-      font-size: 0.72rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .brand-title {
-      margin: 0;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .nav-shell, .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .mobile-menu {
-      display: none;
-    }
-
-    .page-main {
-      padding: 0 0 24px;
-    }
-
-    .page-hero {
-      padding: 44px 0 20px;
-    }
-
-    .page-shell {
       display: grid;
-      gap: 18px;
-    }
-
-    .back-link {
-      color: var(--gold);
-      font-size: 0.95rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .section-card {
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(20, 14, 28, 0.88), rgba(15, 11, 20, 0.76));
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      place-items: center;
       padding: 24px;
     }
 
-    .section-kicker {
-      margin: 0 0 8px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.76rem;
+    .hidden-shell {
+      width: min(100%, 900px);
     }
 
-    .page-title {
-      margin: 0 0 16px;
-      max-width: 12ch;
-      font-size: clamp(2.4rem, 6vw, 4.8rem);
-      line-height: 1.02;
-      color: var(--ink);
-    }
-
-    .section-card h3 {
-      margin: 0 0 12px;
-      font-size: 1.45rem;
+    .hidden-copy {
+      white-space: pre-line;
+      line-height: 1.9;
+      font-size: 1.02rem;
       color: var(--sand);
-    }
-
-    .section-copy,
-    .section-card p,
-    .section-card li {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.72;
-      font-size: 0.97rem;
-    }
-
-    .number-badge {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-      border-radius: 14px;
-      font-weight: 800;
-      color: #1d1609;
-      background: linear-gradient(180deg, #efca83, #c18f3f);
-    }
-
-    .status-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .status-item {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(214, 177, 102, 0.1);
-    }
-
-    .status-item small {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .status-item strong {
-      color: var(--ink);
-      font-size: 1rem;
-    }
-
-    .footer {
-      padding: 16px 0 30px;
-    }
-
-    .footer-grid {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 900px) {
-      .grid-3,
-      .status-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar-inner,
-      .footer-grid {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a class="brand" href="index.html" aria-label="New Babylon home">
-        <img class="brand-mark" src="assets/images/logo.png" alt="" />
-        <div class="brand-copy">
-          <p class="eyebrow">National Youth Puzzle Hunt</p>
-          <p class="brand-title">are you the chosen ?</p>
-        </div>
-      </a>
+  <!-- hidden-state-route -->
+  <main class="hidden-shell">
+    <article class="section-card hidden-copy">
+I stood above the city and called it mine.
+I praised the work of my hands and the might of my glory.
+Before the boast had finished breathing, Heaven answered me.
+I was driven lower than beasts though I had stood higher than kings.
 
-      <button class="mobile-menu" id="menuToggle" aria-expanded="false" aria-controls="navShell" aria-label="Toggle navigation">...</button>
-
-      <div class="nav-shell" id="navShell">
-        <nav class="nav-links" aria-label="Main navigation">
-          <a href="index.html">Home</a>
-          <a href="pages/vision.html">Vision</a>
-          <a href="pages/journey.html">Journey</a>
-          <a href="pages/systems.html">Systems</a>
-          <a href="pages/entry.html">Entry</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-  <main class="page-main">
-    <section class="page-hero">
-      <div class="container page-shell">
-        <a class="back-link reveal" href="index.html">&larr; Back to home</a>
-        <article class="section-card reveal">
-          <p class="section-kicker">Hidden states</p>
-          <h1 class="page-title">404 / lost gate</h1>
-          <p class="section-copy">
-            Some paths are not broken. Some paths are withheld. If you arrived here by accident, return to the known roads. If you arrived here on purpose, remain still and read what has been left behind.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="container grid-3">
-        <article class="section-card reveal">
-          <div class="number-badge">I</div>
-          <h3>First notice</h3>
-          <p>The gate is closed, but closure is not the same as absence. A sealed passage may still be waiting for the correct hour, the correct name, or the correct witness.</p>
-        </article>
-
-        <article class="section-card reveal">
-          <div class="number-badge">II</div>
-          <h3>Record of entry</h3>
-          <p>It is said that those who reach the hidden state are marked once in light and once in silence. Only one of those marks can be seen from the outside.</p>
-        </article>
-
-        <article class="section-card reveal">
-          <div class="number-badge">III</div>
-          <h3>Unissued instruction</h3>
-          <p>When the eastern channel begins to hum, do not answer immediately. Wait for the second echo. The first belongs to the city. The second belongs to the one who called you.</p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="container grid-3">
-        <article class="section-card reveal">
-          <h3>Observed conditions</h3>
-          <div class="status-grid" style="margin-top: 18px;">
-            <div class="status-item"><small>State</small><strong>Unresolved</strong></div>
-            <div class="status-item"><small>Signal</small><strong>Present but veiled</strong></div>
-            <div class="status-item"><small>Return path</small><strong>Still available</strong></div>
-          </div>
-        </article>
-
-        <article class="section-card reveal">
-          <h3>Editable placeholder</h3>
-          <p>This page now exists as a real location in the site. You can reshape the copy, turn it into a puzzle state, or use it later as a deliberate part of the mystery.</p>
-        </article>
-
-        <article class="section-card reveal">
-          <h3>Last instruction</h3>
-          <p>If this page was not meant for you yet, leave without speaking of the red corridor. If it was meant for you, you already know which detail in this paragraph should not be here.</p>
-        </article>
-      </div>
-    </section>
+Name the king.
+Or bring me the verse of his arrogance.
+    </article>
   </main>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <p class="eyebrow">Hidden state</p>
-        <small>This page can later become a real branch of the story, an error page, or a disguised puzzle room.</small>
-      </div>
-      <div>
-        <small>Return to <strong style="color: var(--sand);">Home</strong> or keep this page reserved for future use.</small>
-      </div>
-    </div>
-  </footer>
-
-  <script src="assets/js/main.js"></script>
 </body>
 </html>
