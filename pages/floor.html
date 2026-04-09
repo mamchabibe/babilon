@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
+  <div class="floor-event-overlay" id="floorEventOverlay" hidden>
+    <div class="floor-event-panel">
+      <p class="floor-event-kicker">System anomaly</p>
+      <pre class="floor-event-message" id="floorEventMessage"></pre>
+      <button class="btn btn-primary floor-event-dismiss" id="floorEventDismiss" type="button">Continue</button>
+    </div>
+  </div>
+
   <div class="floor-popup" id="floorCompletionPopup" hidden>
     <div class="floor-popup-card" role="status" aria-live="polite" aria-atomic="true">
       <button class="floor-popup-close" id="floorPopupClose" type="button" aria-label="Close completion message">&times;</button>

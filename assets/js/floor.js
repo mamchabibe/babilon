@@ -19,6 +19,9 @@
   const popupMessageNode = document.getElementById("floorPopupMessage");
   const popupCloseButton = document.getElementById("floorPopupClose");
   const popupTriggerButton = document.getElementById("floorPopupTrigger");
+  const floorEventOverlay = document.getElementById("floorEventOverlay");
+  const floorEventMessage = document.getElementById("floorEventMessage");
+  const floorEventDismiss = document.getElementById("floorEventDismiss");
   const floorPopupMessages = {
     1: {
       title: "You Look Familiar",
@@ -61,6 +64,27 @@
         "So this is thy answer. Thou wouldst cast down the work and call it righteousness. Yet know this: if I fall, it shall not be because my vision was small -- but because ye chose the scattered path over the glory of the tower."
     }
   };
+  const floorSpecialEvents = {
+    8: [
+      "...",
+      "...",
+      "...",
+      "SEAL BREACH DETECTED",
+      "",
+      "FALSE ASCENT IDENTIFIED",
+      "BABYLONIC DIRECTIVE ACTIVE",
+      "",
+      "NO",
+      "THE CHOSEN WERE NOT CALLED TO THE THRONE",
+      "",
+      "ONE SHALL BE GUIDED BY JESUS ALONE",
+      "",
+      "NAME NOT THE WOUND",
+      "REVEAL THE REMEDY",
+      "...",
+      "..."
+    ].join("\n")
+  };
 
   if (
     !auth ||
@@ -81,6 +105,7 @@
   }
 
   let currentFloorState = null;
+  let shownFloorEventNumber = null;
 
   function getRequestedFloorNumber() {
     const params = new URLSearchParams(window.location.search);
@@ -114,6 +139,34 @@
 
     if (popupCloseButton) {
       popupCloseButton.focus();
+    }
+  }
+
+  function hideFloorEvent() {
+    if (!floorEventOverlay) {
+      return;
+    }
+
+    floorEventOverlay.hidden = true;
+  }
+
+  function maybeShowFloorEvent(floor) {
+    if (!floorEventOverlay || !floorEventMessage || !floor) {
+      return;
+    }
+
+    const eventMessage = floorSpecialEvents[floor.number];
+
+    if (!eventMessage || shownFloorEventNumber === floor.number) {
+      return;
+    }
+
+    floorEventMessage.textContent = eventMessage;
+    floorEventOverlay.hidden = false;
+    shownFloorEventNumber = floor.number;
+
+    if (floorEventDismiss) {
+      floorEventDismiss.focus();
     }
   }
 
@@ -294,6 +347,7 @@
     const isUnlocked = isFloorUnlocked(team, floor.number);
 
     syncCompletionPopup(team, floor);
+    maybeShowFloorEvent(floor);
 
     titleNode.textContent = floor.title;
     floorNumberLabel.textContent = `Floor ${floor.number}`;
@@ -453,6 +507,10 @@
 
   if (popupTriggerButton) {
     popupTriggerButton.addEventListener("click", showCompletionPopup);
+  }
+
+  if (floorEventDismiss) {
+    floorEventDismiss.addEventListener("click", hideFloorEvent);
   }
 
   initFloorPage();
