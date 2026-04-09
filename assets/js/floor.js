@@ -14,9 +14,11 @@
   const accessStateNode = document.getElementById("floorAccessState");
   const floorNumberLabel = document.getElementById("floorNumberLabel");
   const popupNode = document.getElementById("floorCompletionPopup");
+  const popupKickerNode = document.getElementById("floorPopupKicker");
   const popupTitleNode = document.getElementById("floorPopupTitle");
   const popupMessageNode = document.getElementById("floorPopupMessage");
   const popupCloseButton = document.getElementById("floorPopupClose");
+  const popupTriggerButton = document.getElementById("floorPopupTrigger");
 
   if (
     !auth ||
@@ -61,13 +63,11 @@
     popupNode.hidden = true;
   }
 
-  function showCompletionPopup(title, message) {
-    if (!popupNode || !popupTitleNode || !popupMessageNode) {
+  function showCompletionPopup() {
+    if (!popupNode) {
       return;
     }
 
-    popupTitleNode.textContent = title;
-    popupMessageNode.textContent = message;
     popupNode.hidden = false;
 
     if (popupCloseButton) {
@@ -77,23 +77,46 @@
 
   function syncCompletionPopup(team, floor) {
     if (!team || !floor) {
-      hideCompletionPopup();
-      return;
-    }
-
-    if (!isFloorCleared(team, floor.number)) {
+      if (popupKickerNode) {
+        popupKickerNode.textContent = "Floor message";
+      }
+      if (popupTitleNode) {
+        popupTitleNode.textContent = "Floor status unavailable";
+      }
+      if (popupMessageNode) {
+        popupMessageNode.textContent = "This floor could not be loaded yet.";
+      }
       hideCompletionPopup();
       return;
     }
 
     const isFinalFloor = floor.number >= floorData.floors.length;
+    const cleared = isFloorCleared(team, floor.number);
+    const unlocked = isFloorUnlocked(team, floor.number);
 
-    showCompletionPopup(
-      isFinalFloor ? "Final floor cleared" : `Floor ${floor.number} cleared`,
-      isFinalFloor
-        ? "Your team has already cleared the last floor in the tower. Close this message with the x whenever you are ready."
-        : `Your team already cleared this floor. You can revisit the riddle here, and Floor ${Math.min(floor.number + 1, floorData.floors.length)} remains unlocked. Close this message with the x whenever you are ready.`
-    );
+    if (popupKickerNode) {
+      popupKickerNode.textContent = cleared ? "Floor complete" : unlocked ? "Floor open" : "Floor locked";
+    }
+
+    if (popupTitleNode) {
+      popupTitleNode.textContent = cleared
+        ? isFinalFloor
+          ? "Final floor cleared"
+          : `Floor ${floor.number} cleared`
+        : unlocked
+        ? `Floor ${floor.number} is ready`
+        : `Floor ${floor.number} is locked`;
+    }
+
+    if (popupMessageNode) {
+      popupMessageNode.textContent = cleared
+        ? isFinalFloor
+          ? "Your team has already cleared the last floor in the tower. Close this message with the x whenever you are ready."
+          : `Your team already cleared this floor. Floor ${Math.min(floor.number + 1, floorData.floors.length)} remains unlocked for you. Close this message with the x whenever you are ready.`
+        : unlocked
+        ? "This floor is open for your team. Solve the riddle here to unlock what comes next."
+        : "This floor is still sealed. Clear the previous floor first, then use this icon again whenever you want to check the status.";
+    }
   }
 
   function setRoster(playerNames) {
@@ -396,6 +419,10 @@
 
   if (popupCloseButton) {
     popupCloseButton.addEventListener("click", hideCompletionPopup);
+  }
+
+  if (popupTriggerButton) {
+    popupTriggerButton.addEventListener("click", showCompletionPopup);
   }
 
   initFloorPage();

@@ -1107,6 +1107,28 @@
       width: min(calc(100vw - 32px), 380px);
     }
 
+    .floor-popup-trigger {
+      position: fixed;
+      top: calc(var(--nav-h) + 18px);
+      right: 18px;
+      z-index: 91;
+      width: 64px;
+      height: 64px;
+      padding: 0;
+      border-radius: 18px;
+      border: 1px solid rgba(214,177,102,0.18);
+      background: linear-gradient(180deg, rgba(20,14,28,0.94), rgba(12,9,18,0.9));
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.36);
+      overflow: hidden;
+    }
+
+    .floor-popup-trigger-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     .floor-popup-card {
       position: relative;
       padding: 22px 52px 22px 22px;
@@ -1302,10 +1324,16 @@
       .section-card,
       .cta-panel { padding: 22px; }
       .floor-popup {
-        top: 88px;
+        top: 160px;
         right: 11px;
         left: 11px;
         width: auto;
+      }
+      .floor-popup-trigger {
+        top: 88px;
+        right: 11px;
+        width: 58px;
+        height: 58px;
       }
       .hero-info,
       .status-grid { grid-template-columns: 1fr; }
