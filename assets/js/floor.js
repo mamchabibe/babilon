@@ -19,6 +19,48 @@
   const popupMessageNode = document.getElementById("floorPopupMessage");
   const popupCloseButton = document.getElementById("floorPopupClose");
   const popupTriggerButton = document.getElementById("floorPopupTrigger");
+  const floorPopupMessages = {
+    1: {
+      title: "You Look Familiar",
+      message:
+        "Thou hast done well. There is in thee a likeness I have seen before -- not of face, but of hunger. The fragment answereth only to those who were meant to notice it."
+    },
+    2: {
+      title: "All Shall Be One",
+      message:
+        "The scattered are many, yet the worthy must learn another way. No great work is raised by divided hands, and no lasting design is born of wandering minds."
+    },
+    3: {
+      title: "The Golden Tongue",
+      message:
+        "Thou hast touched the edge of an older mystery. There was once a strength in speech that men have long forgotten, and even now its echo shineth among the faithful seeker."
+    },
+    4: {
+      title: "I Understand You",
+      message:
+        "I have watched thy steps, and now I know thee better. Each soul revealeth its measure in trial, and every worthy mind hath its place when the design is rightly set."
+    },
+    5: {
+      title: "Aim for the Sky",
+      message:
+        "Thou wert not chosen to crawl among ruins forever. The earth is but the beginning for those with vision, and the worthy must lift their eyes toward that which lesser spirits fear to seek."
+    },
+    6: {
+      title: "On the Top",
+      message:
+        "Few may come this far, and fewer still may bear the height. The summit is not for the multitude, but for the chosen builders who can endure the burden of what is to rise."
+    },
+    7: {
+      title: "Revelation",
+      message:
+        "Now the veil is torn. I gathered thee not merely to seek fragments, but to restore what was broken in the first days -- one purpose, one ascent, one great work beneath one name. The world was scattered, and I would make it whole again."
+    },
+    8: {
+      title: "The Great Fall",
+      message:
+        "So this is thy answer. Thou wouldst cast down the work and call it righteousness. Yet know this: if I fall, it shall not be because my vision was small -- but because ye chose the scattered path over the glory of the tower."
+    }
+  };
 
   if (
     !auth ||
@@ -90,32 +132,20 @@
       return;
     }
 
-    const isFinalFloor = floor.number >= floorData.floors.length;
-    const cleared = isFloorCleared(team, floor.number);
-    const unlocked = isFloorUnlocked(team, floor.number);
+    const popupContent = floorPopupMessages[floor.number];
 
     if (popupKickerNode) {
-      popupKickerNode.textContent = cleared ? "Floor complete" : unlocked ? "Floor open" : "Floor locked";
+      popupKickerNode.textContent = `Floor ${floor.number}`;
     }
 
     if (popupTitleNode) {
-      popupTitleNode.textContent = cleared
-        ? isFinalFloor
-          ? "Final floor cleared"
-          : `Floor ${floor.number} cleared`
-        : unlocked
-        ? `Floor ${floor.number} is ready`
-        : `Floor ${floor.number} is locked`;
+      popupTitleNode.textContent = popupContent ? popupContent.title : floor.title;
     }
 
     if (popupMessageNode) {
-      popupMessageNode.textContent = cleared
-        ? isFinalFloor
-          ? "Your team has already cleared the last floor in the tower. Close this message with the x whenever you are ready."
-          : `Your team already cleared this floor. Floor ${Math.min(floor.number + 1, floorData.floors.length)} remains unlocked for you. Close this message with the x whenever you are ready.`
-        : unlocked
-        ? "This floor is open for your team. Solve the riddle here to unlock what comes next."
-        : "This floor is still sealed. Clear the previous floor first, then use this icon again whenever you want to check the status.";
+      popupMessageNode.textContent = popupContent
+        ? popupContent.message
+        : "This floor has no popup message yet.";
     }
   }
 
