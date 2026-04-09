@@ -141,7 +141,11 @@ REVEAL THE REMEDY
   }
 
   function hideFloorEvent() {
-    window.location.href = "../index.html";
+    if (!floorEventOverlay) {
+      return;
+    }
+
+    floorEventOverlay.hidden = true;
   }
 
   function maybeShowFloorEvent(floor) {
