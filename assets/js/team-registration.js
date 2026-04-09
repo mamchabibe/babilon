@@ -26,6 +26,10 @@
       .filter(Boolean);
   };
 
+  const hasEmailIdentity = (user) => {
+    return Array.isArray(user && user.identities) && user.identities.length > 0;
+  };
+
   entryForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -88,13 +92,21 @@
         throw error;
       }
 
-      entryForm.reset();
-
       if (data.session) {
+        entryForm.reset();
         setFeedback("Team account created successfully. Redirecting your group to the protected floors now...", "success");
         window.location.href = "levels.html";
+      } else if (data.user && !hasEmailIdentity(data.user)) {
+        setFeedback(
+          "That team email is likely already registered. Try signing in on the Login page, reset the password for that email, or use a different shared email.",
+          "error"
+        );
       } else {
-        setFeedback("Team account created. Check the shared team email to confirm the account before signing in on the Login page.", "success");
+        entryForm.reset();
+        setFeedback(
+          "Team account created. Check the shared team email, including Spam, to confirm the account before signing in on the Login page.",
+          "success"
+        );
       }
     } catch (error) {
       const message = error && error.message ? error.message : "Something went wrong while creating the team account.";

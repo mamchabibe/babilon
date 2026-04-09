@@ -200,9 +200,9 @@ begin
   if coalesce(target_team.solved_levels, 0) >= p_floor_number then
     select *
     into existing_completion
-    from public.floor_completions
-    where team_id = target_team.id
-      and floor_number = p_floor_number;
+    from public.floor_completions as fc
+    where fc.team_id = target_team.id
+      and fc.floor_number = p_floor_number;
 
     return query
     select
@@ -227,9 +227,9 @@ begin
 
   select *
   into existing_completion
-  from public.floor_completions
-  where team_id = target_team.id
-    and floor_number = p_floor_number;
+  from public.floor_completions as fc
+  where fc.team_id = target_team.id
+    and fc.floor_number = p_floor_number;
 
   if found then
     return query
@@ -255,8 +255,8 @@ begin
 
   select count(*) + 1
   into awarded_placement
-  from public.floor_completions
-  where floor_number = p_floor_number;
+  from public.floor_completions as fc
+  where fc.floor_number = p_floor_number;
 
   if awarded_placement > 10 then
     awarded_bonus := 0;
