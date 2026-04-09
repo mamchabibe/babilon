@@ -9,6 +9,7 @@
   const titleNode = document.getElementById("floorTitle");
   const leadNode = document.getElementById("floorLead");
   const riddleNode = document.getElementById("floorRiddle");
+  const answerHintNode = document.getElementById("floorAnswerHint");
   const pointsNode = document.getElementById("floorPoints");
   const accessStateNode = document.getElementById("floorAccessState");
   const floorNumberLabel = document.getElementById("floorNumberLabel");
@@ -23,6 +24,7 @@
     !titleNode ||
     !leadNode ||
     !riddleNode ||
+    !answerHintNode ||
     !pointsNode ||
     !accessStateNode ||
     !floorNumberLabel
@@ -75,6 +77,60 @@
     return floorNumber <= Number(team.current_floor || 1) || isFloorCleared(team, floorNumber);
   }
 
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function formatMultilineText(value) {
+    return escapeHtml(value).replace(/\n/g, "<br />");
+  }
+
+  function renderChambers(chambers) {
+    return `
+      <div class="floor-chambers">
+        ${chambers
+          .map((chamber, index) => {
+            const heading = chamber.title
+              ? `<h3>${formatMultilineText(chamber.title)}</h3>`
+              : `<h3>Chamber ${index + 1}</h3>`;
+            const clue = chamber.clue ? `<p class="floor-chamber-clue">${escapeHtml(chamber.clue)}</p>` : "";
+            const image = chamber.image
+              ? `<img class="floor-chamber-image" src="${escapeHtml(chamber.image)}" alt="${escapeHtml(chamber.imageAlt || `Chamber ${index + 1} clue`)}" />`
+              : "";
+            const options = Array.isArray(chamber.options) && chamber.options.length
+              ? `<ul class="floor-option-list">${chamber.options.map((option) => `<li>${escapeHtml(option)}</li>`).join("")}</ul>`
+              : "";
+
+            return `
+              <article class="floor-chamber">
+                <p class="section-kicker">Chamber ${index + 1}</p>
+                ${heading}
+                ${image}
+                ${options}
+                ${clue}
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    `;
+  }
+
+  function renderFloorBody(floor) {
+    if (Array.isArray(floor.chambers) && floor.chambers.length) {
+      const intro = floor.intro ? `<p class="floor-block">${formatMultilineText(floor.intro)}</p>` : "";
+      const outro = floor.outro ? `<p class="floor-block floor-block-strong">${formatMultilineText(floor.outro)}</p>` : "";
+      return `${intro}${renderChambers(floor.chambers)}${outro}`;
+    }
+
+    return `<p class="floor-block">${formatMultilineText(floor.riddle || "")}</p>`;
+  }
+
   function renderFloor(team, floor) {
     const isCleared = isFloorCleared(team, floor.number);
     const isUnlocked = isFloorUnlocked(team, floor.number);
@@ -86,7 +142,8 @@
       : isUnlocked
       ? "This chamber is open to your team now. Read with care and answer only when you are certain."
       : "This chamber is sealed. Clear the previous floor before attempting to enter.";
-    riddleNode.textContent = floor.riddle;
+    riddleNode.innerHTML = renderFloorBody(floor);
+    answerHintNode.textContent = floor.answerPrompt || "Answers are checked without case sensitivity. Focus on the core word or phrase.";
     pointsNode.textContent = isCleared ? `${floor.points} pts` : "Hidden until cleared";
     accessStateNode.textContent = isCleared ? "Cleared" : isUnlocked ? "Unlocked" : "Locked";
 

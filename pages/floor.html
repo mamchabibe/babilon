@@ -63,9 +63,9 @@
         <article class="section-card reveal floor-riddle-card">
           <p class="section-kicker" id="floorNumberLabel">Floor</p>
           <h2 style="margin-bottom: 18px;">Riddle</h2>
-          <p class="section-copy" id="floorRiddle">
+          <div class="section-copy" id="floorRiddle">
             Loading the riddle...
-          </p>
+          </div>
           <div class="floor-status-row">
             <div class="status-item">
               <small>Reward</small>
@@ -84,7 +84,7 @@
             <div class="field">
               <label for="floorAnswer">Answer</label>
               <input id="floorAnswer" name="answer" type="text" placeholder="Enter the answer you believe is true" autocomplete="off" required />
-              <p class="field-hint">Answers are checked without case sensitivity. Focus on the core word or phrase.</p>
+              <p class="field-hint" id="floorAnswerHint">Answers are checked without case sensitivity. Focus on the core word or phrase.</p>
             </div>
 
             <button class="btn btn-primary" id="floorSubmit" type="submit">Submit answer</button>

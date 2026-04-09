@@ -12,9 +12,35 @@
       number: 2,
       title: "All l be one",
       points: 150,
-      riddle:
-        "Broken apart, I weaken. Bound together, I endure. Many voices vanish when a single will is pure. What am I?",
-      answer: "unity"
+      intro:
+        "A specialist is useful.\nAn exceptional mind is sovereign.\nEnter the five chambers.\nBring order to what lesser minds keep separate.",
+      chambers: [
+        {
+          title: "\"simply lovely\"",
+          clue: "His first crown came under desert lights."
+        },
+        {
+          title: "He bent space and troubled the primes.",
+          clue: "reduce the age at which he died."
+        },
+        {
+          image: "../assets/images/9.png",
+          imageAlt: "Ninth chamber clue"
+        },
+        {
+          title: "Not a battle lost.\nA world dissolved.\na broken red star.",
+          clue: "reduce the year it ended."
+        },
+        {
+          title: "1, 2, 6, 15, 31, 56, ?",
+          options: ["A) 88", "B) 89", "C) 90", "D) 91", "E) 92"],
+          clue: "it's not the value that counts"
+        }
+      ],
+      outro:
+        "Knowledge scattered is noise.\nKnowledge ordered becomes rank.",
+      answerPrompt: "Make the five speak one language.",
+      answer: "ELITE"
     },
     {
       number: 3,
