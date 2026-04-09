@@ -85,8 +85,8 @@
       title: "Revelation",
       points: 700,
       riddle:
-        "I do not create the hidden thing. I only tear the covering away. When I arrive, nothing false remains. What am I?",
-      answer: "truth"
+        "GLF MQU FHNWSDD NUISY VOE INXGDR SBETNGK.\nA KNRC VRFGI XBGU GRYH FQEN YSVX.\nVOE FVXX EECY XIY PPGKG XGD STNPFM YLRH FTNJEE.\nAENY VOE VVR SGAK PVPQPLD WUI SGRFAI.\nZYV H WRHRC VIKUSVN KAS ZNPK HS R YMF.\nCP AHH SMESH TUENVGY, TKR IWHLV EIBX VOE KNRC.\n\nThe old king is dead, yet still he opens the wall.",
+      answer: "pride D5"
     },
     {
       number: 8,
