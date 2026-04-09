@@ -1099,6 +1099,72 @@
       letter-spacing: 0.04em;
     }
 
+    .floor-popup {
+      position: fixed;
+      top: calc(var(--nav-h) + 18px);
+      right: 18px;
+      z-index: 90;
+      width: min(calc(100vw - 32px), 380px);
+    }
+
+    .floor-popup-card {
+      position: relative;
+      padding: 22px 52px 22px 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(99,220,166,0.26);
+      background:
+        linear-gradient(180deg, rgba(23, 31, 22, 0.94), rgba(14, 20, 16, 0.9)),
+        rgba(20,14,28,0.9);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.42);
+      animation: floor-popup-enter 0.28s ease;
+    }
+
+    .floor-popup-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.08;
+      color: #d8f6e4;
+    }
+
+    .floor-popup-copy {
+      margin: 0;
+      color: #c7dbc8;
+      line-height: 1.65;
+    }
+
+    .floor-popup-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      color: var(--ink);
+      display: inline-grid;
+      place-items: center;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .floor-popup-close:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.24);
+    }
+
+    @keyframes floor-popup-enter {
+      from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
     .leaderboard-shell {
       overflow: hidden;
       border: 1px solid rgba(214,177,102,0.12);
@@ -1235,6 +1301,12 @@
       .portal-card,
       .section-card,
       .cta-panel { padding: 22px; }
+      .floor-popup {
+        top: 88px;
+        right: 11px;
+        left: 11px;
+        width: auto;
+      }
       .hero-info,
       .status-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }

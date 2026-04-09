@@ -8,6 +8,15 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
+  <div class="floor-popup" id="floorCompletionPopup" hidden>
+    <div class="floor-popup-card" role="status" aria-live="polite" aria-atomic="true">
+      <button class="floor-popup-close" id="floorPopupClose" type="button" aria-label="Close completion message">&times;</button>
+      <p class="section-kicker">Floor complete</p>
+      <h2 class="floor-popup-title" id="floorPopupTitle">Floor cleared</h2>
+      <p class="floor-popup-copy" id="floorPopupMessage">Your team has cleared this floor.</p>
+    </div>
+  </div>
+
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="../index.html" aria-label="New Babylon home">
@@ -113,6 +122,6 @@
   <script src="../assets/js/main.js"></script>
   <script src="../assets/js/auth.js"></script>
   <script src="../assets/js/floor-data.js?v=20260409-3"></script>
-  <script src="../assets/js/floor.js?v=20260409-3"></script>
+  <script src="../assets/js/floor.js?v=20260409-4"></script>
 </body>
 </html>

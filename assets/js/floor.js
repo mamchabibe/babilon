@@ -13,6 +13,10 @@
   const pointsNode = document.getElementById("floorPoints");
   const accessStateNode = document.getElementById("floorAccessState");
   const floorNumberLabel = document.getElementById("floorNumberLabel");
+  const popupNode = document.getElementById("floorCompletionPopup");
+  const popupTitleNode = document.getElementById("floorPopupTitle");
+  const popupMessageNode = document.getElementById("floorPopupMessage");
+  const popupCloseButton = document.getElementById("floorPopupClose");
 
   if (
     !auth ||
@@ -46,6 +50,28 @@
 
     if (type) {
       feedbackNode.classList.add(type === "error" ? "is-error" : "is-success");
+    }
+  }
+
+  function hideCompletionPopup() {
+    if (!popupNode) {
+      return;
+    }
+
+    popupNode.hidden = true;
+  }
+
+  function showCompletionPopup(title, message) {
+    if (!popupNode || !popupTitleNode || !popupMessageNode) {
+      return;
+    }
+
+    popupTitleNode.textContent = title;
+    popupMessageNode.textContent = message;
+    popupNode.hidden = false;
+
+    if (popupCloseButton) {
+      popupCloseButton.focus();
     }
   }
 
@@ -283,6 +309,7 @@
       const updates = buildUpdatedProgress(team, floor);
       const updatedTeam = await auth.updateTeamProgress(client, team.id, updates);
       const completedAsFinal = floor.number >= floorData.floors.length;
+      const nextFloorNumber = floor.number + 1;
       currentFloorState.team = updatedTeam;
 
       renderFloor(updatedTeam, floor);
@@ -292,6 +319,12 @@
           ? "Correct. The final floor has been cleared."
           : `Correct. Floor ${floor.number + 1} is now unlocked.`,
         "success"
+      );
+      showCompletionPopup(
+        completedAsFinal ? "Final floor cleared" : `Floor ${floor.number} cleared`,
+        completedAsFinal
+          ? "Your team has cleared the last floor in the tower. Close this message with the x whenever you are ready."
+          : `Nice work. Floor ${nextFloorNumber} is now unlocked for your team. Close this message with the x whenever you are ready to continue.`
       );
     } catch (error) {
       setFeedback(normalizeErrorMessage(error), "error");
@@ -344,5 +377,10 @@
   }
 
   answerForm.addEventListener("submit", handleSubmit);
+
+  if (popupCloseButton) {
+    popupCloseButton.addEventListener("click", hideCompletionPopup);
+  }
+
   initFloorPage();
 })();
