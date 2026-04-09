@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Floors - New Babylon</title>
-  <meta name="description" content="Protected tower floors page for signed-in teams in New Babylon." />
+  <title>Floor - New Babylon</title>
+  <meta name="description" content="Protected puzzle floor for signed-in teams in New Babylon." />
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
@@ -37,13 +37,14 @@
   <main class="page-main">
     <section class="page-hero">
       <div class="container page-shell">
+        <a class="back-link reveal" href="levels.html">&larr; Back to floors</a>
         <article class="section-card reveal protected-shell">
           <div class="protected-header">
             <div>
-              <p class="section-kicker">Protected floor map</p>
-              <h1 class="page-title">Tower floors</h1>
-              <p class="section-copy">
-                Only signed-in teams can view this tower map. Floors represent the progression of the city as your group climbs upward through the hunt.
+              <p class="section-kicker">Protected puzzle floor</p>
+              <h1 class="page-title" id="floorTitle">Loading floor...</h1>
+              <p class="section-copy" id="floorLead">
+                Preparing this chamber for your team.
               </p>
             </div>
             <div class="account-panel">
@@ -58,25 +59,38 @@
     </section>
 
     <section>
-      <div class="container">
-        <div class="summary-grid">
-          <article class="status-item reveal">
-            <small>Current floor</small>
-            <strong id="teamFloor">-</strong>
-          </article>
-          <article class="status-item reveal">
-            <small>Total points</small>
-            <strong id="teamPoints">-</strong>
-          </article>
-          <article class="status-item reveal">
-            <small>Solved levels</small>
-            <strong id="teamSolved">-</strong>
-          </article>
-        </div>
+      <div class="container grid-2 floor-shell">
+        <article class="section-card reveal floor-riddle-card">
+          <p class="section-kicker" id="floorNumberLabel">Floor</p>
+          <h2 style="margin-bottom: 18px;">Riddle</h2>
+          <p class="section-copy" id="floorRiddle">
+            Loading the riddle...
+          </p>
+          <div class="floor-status-row">
+            <div class="status-item">
+              <small>Reward</small>
+              <strong id="floorPoints">-</strong>
+            </div>
+            <div class="status-item">
+              <small>Access</small>
+              <strong id="floorAccessState">-</strong>
+            </div>
+          </div>
+        </article>
 
-        <p class="helper reveal" id="levelsFeedback">Checking protected access...</p>
+        <article class="section-card reveal">
+          <h2 style="margin-bottom: 18px;">Submit your answer</h2>
+          <form class="form-shell auth-form floor-answer-form" id="floorAnswerForm" novalidate>
+            <div class="field">
+              <label for="floorAnswer">Answer</label>
+              <input id="floorAnswer" name="answer" type="text" placeholder="Enter the answer you believe is true" autocomplete="off" required />
+              <p class="field-hint">Answers are checked without case sensitivity. Focus on the core word or phrase.</p>
+            </div>
 
-        <div class="tower-grid reveal" id="towerFloors"></div>
+            <button class="btn btn-primary" id="floorSubmit" type="submit">Submit answer</button>
+            <p class="helper" id="floorFeedback">Only the current unlocked floor can be solved.</p>
+          </form>
+        </article>
       </div>
     </section>
   </main>
@@ -84,11 +98,11 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div>
-        <p class="eyebrow">Protected page</p>
-        <small>Unauthenticated visitors are redirected to the team login page.</small>
+        <p class="eyebrow">Floor page</p>
+        <small>Each floor stands alone and remains sealed until the previous one has been cleared.</small>
       </div>
       <div>
-        <small>Use the leaderboard page to compare your climb with other teams.</small>
+        <small>Return to <strong style="color: var(--sand);">Floors</strong> to view the full ascent.</small>
       </div>
     </div>
   </footer>
@@ -99,6 +113,6 @@
   <script src="../assets/js/main.js"></script>
   <script src="../assets/js/auth.js"></script>
   <script src="../assets/js/floor-data.js"></script>
-  <script src="../assets/js/levels.js"></script>
+  <script src="../assets/js/floor.js"></script>
 </body>
 </html>

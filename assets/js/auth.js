@@ -141,6 +141,29 @@
     );
   }
 
+  async function updateTeamProgress(client, teamId, updates) {
+    const payload = {
+      ...updates,
+      last_activity_at: new Date().toISOString()
+    };
+
+    const { data, error } = await client
+      .from("teams")
+      .update(payload)
+      .eq("id", teamId)
+      .select("id, group_name, contact_email, player_names, current_floor, total_points, solved_levels, last_activity_at")
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return {
+      ...data,
+      player_names: normalizePlayerNames(data.player_names)
+    };
+  }
+
   async function signOut() {
     const client = getClient();
 
@@ -179,6 +202,7 @@
     fetchCurrentTeam,
     normalizePlayerNames,
     isMissingProgressColumnsError,
+    updateTeamProgress,
     signOut,
     wireLogoutButtons,
     setTeamName,
