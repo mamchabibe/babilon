@@ -75,6 +75,27 @@
     }
   }
 
+  function syncCompletionPopup(team, floor) {
+    if (!team || !floor) {
+      hideCompletionPopup();
+      return;
+    }
+
+    if (!isFloorCleared(team, floor.number)) {
+      hideCompletionPopup();
+      return;
+    }
+
+    const isFinalFloor = floor.number >= floorData.floors.length;
+
+    showCompletionPopup(
+      isFinalFloor ? "Final floor cleared" : `Floor ${floor.number} cleared`,
+      isFinalFloor
+        ? "Your team has already cleared the last floor in the tower. Close this message with the x whenever you are ready."
+        : `Your team already cleared this floor. You can revisit the riddle here, and Floor ${Math.min(floor.number + 1, floorData.floors.length)} remains unlocked. Close this message with the x whenever you are ready.`
+    );
+  }
+
   function setRoster(playerNames) {
     if (!rosterNode) {
       return;
@@ -219,6 +240,8 @@
     const isCleared = isFloorCleared(team, floor.number);
     const isUnlocked = isFloorUnlocked(team, floor.number);
 
+    syncCompletionPopup(team, floor);
+
     titleNode.textContent = floor.title;
     floorNumberLabel.textContent = `Floor ${floor.number}`;
     leadNode.textContent = isCleared
@@ -309,7 +332,6 @@
       const updates = buildUpdatedProgress(team, floor);
       const updatedTeam = await auth.updateTeamProgress(client, team.id, updates);
       const completedAsFinal = floor.number >= floorData.floors.length;
-      const nextFloorNumber = floor.number + 1;
       currentFloorState.team = updatedTeam;
 
       renderFloor(updatedTeam, floor);
@@ -319,12 +341,6 @@
           ? "Correct. The final floor has been cleared."
           : `Correct. Floor ${floor.number + 1} is now unlocked.`,
         "success"
-      );
-      showCompletionPopup(
-        completedAsFinal ? "Final floor cleared" : `Floor ${floor.number} cleared`,
-        completedAsFinal
-          ? "Your team has cleared the last floor in the tower. Close this message with the x whenever you are ready."
-          : `Nice work. Floor ${nextFloorNumber} is now unlocked for your team. Close this message with the x whenever you are ready to continue.`
       );
     } catch (error) {
       setFeedback(normalizeErrorMessage(error), "error");
