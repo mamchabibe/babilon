@@ -65,25 +65,23 @@
     }
   };
   const floorSpecialEvents = {
-    8: [
-      "...",
-      "...",
-      "...",
-      "SEAL BREACH DETECTED",
-      "",
-      "FALSE ASCENT IDENTIFIED",
-      "BABYLONIC DIRECTIVE ACTIVE",
-      "",
-      "NO",
-      "THE CHOSEN WERE NOT CALLED TO THE THRONE",
-      "",
-      "ONE SHALL BE GUIDED BY JESUS ALONE",
-      "",
-      "NAME NOT THE WOUND",
-      "REVEAL THE REMEDY",
-      "...",
-      "..."
-    ].join("\n")
+    8: `...
+...
+...
+SEAL BREACH DETECTED
+
+FALSE ASCENT IDENTIFIED
+BABYLONIC DIRECTIVE ACTIVE
+
+NO
+THE CHOSEN WERE NOT CALLED TO THE THRONE
+
+ONE SHALL BE GUIDED BY JESUS ALONE
+
+NAME NOT THE WOUND
+REVEAL THE REMEDY
+...
+...`
   };
 
   if (
@@ -143,11 +141,7 @@
   }
 
   function hideFloorEvent() {
-    if (!floorEventOverlay) {
-      return;
-    }
-
-    floorEventOverlay.hidden = true;
+    window.location.href = "../index.html";
   }
 
   function maybeShowFloorEvent(floor) {
