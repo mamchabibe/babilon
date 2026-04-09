@@ -47,8 +47,8 @@
       title: "the golden tongue",
       points: 200,
       riddle:
-        "I carry truth or poison in the same bright breath. Kingdoms rise when I am measured and fall when I run wild. What am I?",
-      answer: "speech"
+        "You have heard my voice where words are chained.\nBut a voice is never the face.\nSeek the imitation that sings in squares,\nwhere the borrowed insect wears my shadow.\nThere, the next door waits.",
+      answer: "euclide"
     },
     {
       number: 4,
