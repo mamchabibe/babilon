@@ -31,6 +31,44 @@
     return rawMessage;
   }
 
+  function renderRows(rows, currentTeamId) {
+    leaderboardBody.innerHTML = rows
+      .map((row, index) => {
+        const isCurrentTeam = currentTeamId && row.team_id === currentTeamId;
+
+        return `
+          <tr class="${isCurrentTeam ? "is-you" : ""}">
+            <td>${index + 1}</td>
+            <td>${row.group_name}${isCurrentTeam ? ' <span class="status-chip">You</span>' : ""}</td>
+            <td>${row.current_floor}</td>
+            <td>${row.total_points}</td>
+            <td>${row.solved_levels}</td>
+          </tr>
+        `;
+      })
+      .join("");
+  }
+
+  async function fetchFallbackLeaderboardRows(client) {
+    const { data, error } = await client
+      .from("teams")
+      .select("id, group_name, created_at")
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      throw error;
+    }
+
+    return (data || []).map((row) => ({
+      team_id: row.id,
+      group_name: row.group_name,
+      current_floor: 1,
+      total_points: 0,
+      solved_levels: 0,
+      updated_at: row.created_at
+    }));
+  }
+
   async function initLeaderboard() {
     try {
       auth.wireLogoutButtons();
@@ -46,12 +84,23 @@
       auth.setTeamName(team.group_name || "Your team");
       auth.setTeamMeta(`${team.current_floor || 1} active floor`);
 
-      const { data, error } = await authState.client
+      let { data, error } = await authState.client
         .from("leaderboard_entries")
         .select("team_id, group_name, current_floor, total_points, solved_levels, updated_at")
         .order("total_points", { ascending: false })
         .order("current_floor", { ascending: false })
         .order("updated_at", { ascending: true });
+
+      if (
+        error &&
+        (error.message || "").includes("leaderboard_entries")
+      ) {
+        data = await fetchFallbackLeaderboardRows(authState.client);
+        error = null;
+      } else if (error && auth.isMissingProgressColumnsError(error)) {
+        data = await fetchFallbackLeaderboardRows(authState.client);
+        error = null;
+      }
 
       if (error) {
         throw error;
@@ -67,23 +116,13 @@
         return;
       }
 
-      leaderboardBody.innerHTML = data
-        .map((row, index) => {
-          const isCurrentTeam = row.team_id === team.id;
+      renderRows(data, team.id);
 
-          return `
-            <tr class="${isCurrentTeam ? "is-you" : ""}">
-              <td>${index + 1}</td>
-              <td>${row.group_name}${isCurrentTeam ? ' <span class="status-chip">You</span>' : ""}</td>
-              <td>${row.current_floor}</td>
-              <td>${row.total_points}</td>
-              <td>${row.solved_levels}</td>
-            </tr>
-          `;
-        })
-        .join("");
-
-      setFeedback("Leaderboard loaded successfully.", "success");
+      if (data.length && data[0].updated_at && data.every((row) => row.total_points === 0 && row.solved_levels === 0)) {
+        setFeedback("Leaderboard loaded with default progress values. Apply the Supabase schema update to store real floor, points, and solved totals.", "success");
+      } else {
+        setFeedback("Leaderboard loaded successfully.", "success");
+      }
     } catch (error) {
       setFeedback(normalizeErrorMessage(error), "error");
     }

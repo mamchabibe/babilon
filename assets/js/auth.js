@@ -46,11 +46,29 @@
   async function fetchCurrentTeam(client, authUserId) {
     const authUser = authUserId && typeof authUserId === "object" ? authUserId : null;
     const resolvedAuthUserId = authUser ? authUser.id : authUserId;
-    const { data, error } = await client
+    let { data, error } = await client
       .from("teams")
       .select("id, group_name, contact_email, player_names, current_floor, total_points, solved_levels, last_activity_at")
       .eq("auth_user_id", resolvedAuthUserId)
       .maybeSingle();
+
+    if (error && isMissingProgressColumnsError(error)) {
+      const fallbackResponse = await client
+        .from("teams")
+        .select("id, group_name, contact_email, player_names, last_activity_at")
+        .eq("auth_user_id", resolvedAuthUserId)
+        .maybeSingle();
+
+      data = fallbackResponse.data
+        ? {
+            ...fallbackResponse.data,
+            current_floor: 1,
+            total_points: 0,
+            solved_levels: 0
+          }
+        : fallbackResponse.data;
+      error = fallbackResponse.error;
+    }
 
     if (error) {
       throw error;
@@ -114,6 +132,15 @@
     };
   }
 
+  function isMissingProgressColumnsError(error) {
+    const message = error && error.message ? error.message : "";
+    return (
+      message.includes("current_floor") ||
+      message.includes("total_points") ||
+      message.includes("solved_levels")
+    );
+  }
+
   async function signOut() {
     const client = getClient();
 
@@ -151,6 +178,7 @@
     requireAuth,
     fetchCurrentTeam,
     normalizePlayerNames,
+    isMissingProgressColumnsError,
     signOut,
     wireLogoutButtons,
     setTeamName,

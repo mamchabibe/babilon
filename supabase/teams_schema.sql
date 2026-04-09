@@ -88,6 +88,30 @@ after insert or update on public.teams
 for each row
 execute procedure public.sync_leaderboard_entry();
 
+insert into public.leaderboard_entries (
+  team_id,
+  group_name,
+  current_floor,
+  total_points,
+  solved_levels,
+  updated_at
+)
+select
+  id,
+  group_name,
+  current_floor,
+  total_points,
+  solved_levels,
+  timezone('utc', now())
+from public.teams
+on conflict (team_id) do update
+set
+  group_name = excluded.group_name,
+  current_floor = excluded.current_floor,
+  total_points = excluded.total_points,
+  solved_levels = excluded.solved_levels,
+  updated_at = timezone('utc', now());
+
 create or replace function public.handle_team_signup()
 returns trigger
 language plpgsql
