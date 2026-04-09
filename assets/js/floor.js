@@ -222,6 +222,10 @@ REVEAL THE REMEDY
       return "The team progress columns are missing in Supabase. Re-run supabase/teams_schema.sql, then refresh this page.";
     }
 
+    if (rawMessage.includes("complete_floor")) {
+      return "The floor completion function is missing in Supabase. Re-run supabase/teams_schema.sql, then refresh this page.";
+    }
+
     return rawMessage;
   }
 
@@ -387,16 +391,44 @@ REVEAL THE REMEDY
     setFeedback("Submit the correct answer to unlock the next floor.", "success");
   }
 
-  function buildUpdatedProgress(team, floor) {
-    const totalFloors = floorData.floors.length;
-    const solvedLevels = Math.max(Number(team.solved_levels || 0), floor.number);
-    const nextFloor = floor.number >= totalFloors ? totalFloors : floor.number + 1;
+  function formatOrdinal(value) {
+    const number = Number(value);
 
-    return {
-      solved_levels: solvedLevels,
-      current_floor: Math.max(Number(team.current_floor || 1), nextFloor),
-      total_points: floorData.getTotalPointsForSolvedCount(solvedLevels)
-    };
+    if (!Number.isInteger(number) || number <= 0) {
+      return "";
+    }
+
+    const mod100 = number % 100;
+
+    if (mod100 >= 11 && mod100 <= 13) {
+      return `${number}th`;
+    }
+
+    switch (number % 10) {
+      case 1:
+        return `${number}st`;
+      case 2:
+        return `${number}nd`;
+      case 3:
+        return `${number}rd`;
+      default:
+        return `${number}th`;
+    }
+  }
+
+  function buildCompletionFeedback(floor, award) {
+    const completedAsFinal = floor.number >= floorData.floors.length;
+    const nextStepMessage = completedAsFinal
+      ? "The final floor has been cleared."
+      : `Floor ${floor.number + 1} is now unlocked.`;
+    const bonusPoints = Number(award && award.bonus_points ? award.bonus_points : 0);
+    const placement = award ? award.placement : null;
+
+    if (bonusPoints > 0 && placement) {
+      return `Correct. You finished this floor in ${formatOrdinal(placement)} place and earned ${bonusPoints} bonus points. ${nextStepMessage}`;
+    }
+
+    return `Correct. ${nextStepMessage}`;
   }
 
   async function handleSubmit(event) {
@@ -435,23 +467,17 @@ REVEAL THE REMEDY
     submitButton.textContent = "Unlocking next floor...";
 
     try {
-      if (!team.id) {
-        throw new Error("This team profile is missing from Supabase. Re-run the team schema and sign in again.");
-      }
-
-      const updates = buildUpdatedProgress(team, floor);
-      const updatedTeam = await auth.updateTeamProgress(client, team.id, updates);
-      const completedAsFinal = floor.number >= floorData.floors.length;
+      const completion = await auth.completeFloor(client, floor.number);
+      const updatedTeam = {
+        ...team,
+        ...completion.team,
+        player_names: team.player_names
+      };
       currentFloorState.team = updatedTeam;
 
       renderFloor(updatedTeam, floor);
       answerForm.reset();
-      setFeedback(
-        completedAsFinal
-          ? "Correct. The final floor has been cleared."
-          : `Correct. Floor ${floor.number + 1} is now unlocked.`,
-        "success"
-      );
+      setFeedback(buildCompletionFeedback(floor, completion.award), "success");
     } catch (error) {
       setFeedback(normalizeErrorMessage(error), "error");
       submitButton.disabled = false;

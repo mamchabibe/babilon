@@ -164,6 +164,40 @@
     };
   }
 
+  async function completeFloor(client, floorNumber) {
+    const { data, error } = await client.rpc("complete_floor", {
+      p_floor_number: floorNumber
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    const row = Array.isArray(data) ? data[0] : data;
+
+    if (!row) {
+      throw new Error("The floor completion response was empty.");
+    }
+
+    return {
+      team: {
+        id: row.team_id,
+        group_name: row.group_name,
+        current_floor: row.current_floor,
+        total_points: row.total_points,
+        solved_levels: row.solved_levels,
+        last_activity_at: row.last_activity_at,
+        player_names: []
+      },
+      award: {
+        placement: row.placement,
+        base_points: row.base_points,
+        bonus_points: row.bonus_points,
+        total_awarded: row.total_awarded
+      }
+    };
+  }
+
   async function signOut() {
     const client = getClient();
 
@@ -203,6 +237,7 @@
     normalizePlayerNames,
     isMissingProgressColumnsError,
     updateTeamProgress,
+    completeFloor,
     signOut,
     wireLogoutButtons,
     setTeamName,
