@@ -54,9 +54,15 @@
       number: 4,
       title: "I understand you",
       points: 300,
-      riddle:
-        "I am not your voice, yet I make your meaning known. I cross between minds without needing a throne. What am I?",
-      answer: "understanding"
+      intro:
+        "Good.\nYou have learned to hear what lies beneath language.\nNow seek the one that does not wander.\nThe fifth path begins where the sky keeps its fixed witness.",
+      chambers: [
+        {
+          image: "../assets/images/riddle4.png",
+          imageAlt: "Fourth floor clue"
+        }
+      ],
+      answer: "polaris"
     },
     {
       number: 5,
